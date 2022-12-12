@@ -174,8 +174,8 @@ export default class FootNoteEditing extends Plugin {
                 name: 'section',
                 classes: 'footnote'
             },            
-            model: ( viewElement, modelWriter ) => {
-                const FootNote = modelWriter.createElement( 'footNote' );
+            model: ( viewElement, { writer } ) => {
+                const FootNote = writer.createElement( 'footNote' );
                 return FootNote;
             }
             
@@ -239,8 +239,8 @@ export default class FootNoteEditing extends Plugin {
         /***********************************Footnote List Conversion************************************/
         
         conversion.for( 'upcast' ).elementToElement( {
-            model: ( viewElement, modelWriter ) => {
-                return modelWriter.createElement( 'footNoteList' );
+            model: ( viewElement, { writer } ) => {
+                return writer.createElement( 'footNoteList' );
             },
             view: {
                 name: 'section',
@@ -273,11 +273,11 @@ export default class FootNoteEditing extends Plugin {
                 name: 'span',
                 classes: 'footnote-item'
             },
-            model: ( viewElement, modelWriter ) => {
+            model: ( viewElement, { writer } ) => {
                 // Extract the "name" from "{name}".
                 const id = viewElement.getChild( 0 ).data.slice( 0, -2 );
 
-                return modelWriter.createElement( 'footNoteItem', { id } );
+                return writer.createElement( 'footNoteItem', { id } );
             }
         } );
 
@@ -315,11 +315,11 @@ export default class FootNoteEditing extends Plugin {
                 name: 'span',
                 classes: [ 'noteholder' ]
             },
-            model: ( viewElement, modelWriter ) => {
+            model: ( viewElement, { writer } ) => {
                 // Extract the "id" from "[id]".
                 const id = viewElement.getChild( 0 ).getChild( 0 ).data.slice( 1, -1 );
 
-                return modelWriter.createElement( 'noteHolder', { id } );
+                return writer.createElement( 'noteHolder', { id } );
             }
         } );
 
