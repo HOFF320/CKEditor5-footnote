@@ -225,13 +225,24 @@ export default class FootNoteEditing extends Plugin {
         } );
 
         function createTitleView( modelElement, viewWriter ) {
-            const titleView = viewWriter.createContainerElement( 'h3', {
-                class: 'footnote-title',
-                style: "display: inline;"
-            } );
+            if(typeof viewWriter.createContainerElement === "function") {
+                const titleView = viewWriter.createContainerElement( 'h3', {
+                    class: 'footnote-title',
+                    style: "display: inline;"
+                } );
 
-            const innerText = viewWriter.createText( 'Footnotes:' );
-            viewWriter.insert( viewWriter.createPositionAt( titleView, 0 ), innerText );
+                const innerText = viewWriter.createText( 'Footnotes:' );
+                viewWriter.insert( viewWriter.createPositionAt( titleView, 0 ), innerText );
+            }
+            else {
+                const titleView = viewWriter.writer.createContainerElement( 'h3', {
+                    class: 'footnote-title',
+                    style: "display: inline;"
+                } );
+
+                const innerText = viewWriter.writer.createText( 'Footnotes:' );
+                viewWriter.writer.insert( viewWriter.writer.createPositionAt( titleView, 0 ), innerText );
+            }
 
             return titleView;
         }
@@ -297,13 +308,25 @@ export default class FootNoteEditing extends Plugin {
         
         function createItemView( modelElement, viewWriter ) {
 
-            const id = modelElement.getAttribute( 'id' );
-            const itemView = viewWriter.createContainerElement( 'span', {
-                class: 'footnote-item'
-            } );
+            if(typeof viewWriter.createContainerElement === "function") {
+                const id = modelElement.getAttribute( 'id' );
+                const itemView = viewWriter.createContainerElement( 'span', {
+                    class: 'footnote-item'
+                } );
 
-            const innerText = viewWriter.createText( id + '. ' );
-            viewWriter.insert( viewWriter.createPositionAt( itemView, 0 ), innerText );
+                const innerText = viewWriter.createText( id + '. ' );
+                viewWriter.insert( viewWriter.createPositionAt( itemView, 0 ), innerText );
+            }
+            
+            else {
+                const id = modelElement.getAttribute( 'id' );
+                const itemView = viewWriter.writer.createContainerElement( 'span', {
+                    class: 'footnote-item'
+                } );
+
+                const innerText = viewWriter.writer.createText( id + '. ' );
+                viewWriter.writer.insert( viewWriter.writer.createPositionAt( itemView, 0 ), innerText );
+            }
 
             return itemView;
         }
@@ -340,17 +363,33 @@ export default class FootNoteEditing extends Plugin {
 
         // Helper method for both downcast converters.
         function createPlaceholderView( modelElement, viewWriter ) {
-            const id = modelElement.getAttribute( 'id' );
+            if(typeof viewWriter.createContainerElement === "function") {
+                const id = modelElement.getAttribute( 'id' );
 
-            const placeholderView = viewWriter.createContainerElement( 'span', {
-                class: 'noteholder'
-            } );
+                const placeholderView = viewWriter.createContainerElement( 'span', {
+                    class: 'noteholder'
+                } );
 
-            // Insert the placeholder name (as a text).
-            const innerText = viewWriter.createText( '[' + id + ']' );
-            const sup = viewWriter.createContainerElement( 'sup' );
-            viewWriter.insert( viewWriter.createPositionAt( sup, 0 ), innerText );
-            viewWriter.insert( viewWriter.createPositionAt( placeholderView, 0 ), sup );
+                // Insert the placeholder name (as a text).
+                const innerText = viewWriter.createText( '[' + id + ']' );
+                const sup = viewWriter.createContainerElement( 'sup' );
+                viewWriter.insert( viewWriter.createPositionAt( sup, 0 ), innerText );
+                viewWriter.insert( viewWriter.createPositionAt( placeholderView, 0 ), sup );
+            }
+            
+            else {
+                const id = modelElement.getAttribute( 'id' );
+
+                const placeholderView = viewWriter.writer.createContainerElement( 'span', {
+                    class: 'noteholder'
+                } );
+
+                // Insert the placeholder name (as a text).
+                const innerText = viewWriter.writer.createText( '[' + id + ']' );
+                const sup = viewWriter.writer.createContainerElement( 'sup' );
+                viewWriter.writer.insert( viewWriter.createPositionAt( sup, 0 ), innerText );
+                viewWriter.writer.insert( viewWriter.createPositionAt( placeholderView, 0 ), sup );
+            }
 
             return placeholderView;
         }
