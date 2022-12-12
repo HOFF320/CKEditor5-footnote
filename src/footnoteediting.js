@@ -233,6 +233,8 @@ export default class FootNoteEditing extends Plugin {
 
                 const innerText = viewWriter.createText( 'Footnotes:' );
                 viewWriter.insert( viewWriter.createPositionAt( titleView, 0 ), innerText );
+                
+                return titleView;
             }
             else {
                 const titleView = viewWriter.writer.createContainerElement( 'h3', {
@@ -242,9 +244,10 @@ export default class FootNoteEditing extends Plugin {
 
                 const innerText = viewWriter.writer.createText( 'Footnotes:' );
                 viewWriter.writer.insert( viewWriter.writer.createPositionAt( titleView, 0 ), innerText );
+                
+                return titleView;
             }
-
-            return titleView;
+            
         }
 
         /***********************************Footnote List Conversion************************************/
@@ -316,6 +319,8 @@ export default class FootNoteEditing extends Plugin {
 
                 const innerText = viewWriter.createText( id + '. ' );
                 viewWriter.insert( viewWriter.createPositionAt( itemView, 0 ), innerText );
+
+                return itemView;
             }
             
             else {
@@ -326,9 +331,9 @@ export default class FootNoteEditing extends Plugin {
 
                 const innerText = viewWriter.writer.createText( id + '. ' );
                 viewWriter.writer.insert( viewWriter.writer.createPositionAt( itemView, 0 ), innerText );
-            }
 
-            return itemView;
+                return itemView;
+            }
         }
 
         /***********************************Footnote Inline Conversion************************************/
@@ -375,6 +380,8 @@ export default class FootNoteEditing extends Plugin {
                 const sup = viewWriter.createContainerElement( 'sup' );
                 viewWriter.insert( viewWriter.createPositionAt( sup, 0 ), innerText );
                 viewWriter.insert( viewWriter.createPositionAt( placeholderView, 0 ), sup );
+                
+                return placeholderView;
             }
             
             else {
@@ -389,9 +396,9 @@ export default class FootNoteEditing extends Plugin {
                 const sup = viewWriter.writer.createContainerElement( 'sup' );
                 viewWriter.writer.insert( viewWriter.createPositionAt( sup, 0 ), innerText );
                 viewWriter.writer.insert( viewWriter.createPositionAt( placeholderView, 0 ), sup );
+                
+                return placeholderView;
             }
-
-            return placeholderView;
         }
 
         conversion.for( 'editingDowncast' )
