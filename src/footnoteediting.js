@@ -224,7 +224,7 @@ export default class FootNoteEditing extends Plugin {
             }
         } );
 
-        function createTitleView( modelElement, { writer: viewWriter } ) {
+        function createTitleView( modelElement, viewWriter ) {
             const titleView = viewWriter.createContainerElement( 'h3', {
                 class: 'footnote-title',
                 style: "display: inline;"
@@ -295,7 +295,7 @@ export default class FootNoteEditing extends Plugin {
             }
         } );
         
-        function createItemView( modelElement, { writer: viewWriter } ) {
+        function createItemView( modelElement, viewWriter ) {
 
             const id = modelElement.getAttribute( 'id' );
             const itemView = viewWriter.createContainerElement( 'span', {
@@ -339,7 +339,7 @@ export default class FootNoteEditing extends Plugin {
         } );
 
         // Helper method for both downcast converters.
-        function createPlaceholderView( modelElement, { writer: viewWriter } ) {
+        function createPlaceholderView( modelElement, viewWriter ) {
             const id = modelElement.getAttribute( 'id' );
 
             const placeholderView = viewWriter.createContainerElement( 'span', {
